@@ -2,4 +2,16 @@ cmake_minimum_required(VERSION 3.15)
 
 project(multi)
 
+
+find_package(OpenGL REQUIRED)
+
+add_subdirectory(glfw)
+
 add_subdirectory(src)
+
+target_include_directories(multi PUBLIC glfw/include)
+target_include_directories(multi PUBLIC ${OPENGL_INCLUDE_DIR})
+
+target_link_libraries(multi glfw)
+target_link_libraries(multi ${OPENGL_gl_LIBRARY})
+target_link_libraries(multi ${OPENGL_glu_LIBRARY})
