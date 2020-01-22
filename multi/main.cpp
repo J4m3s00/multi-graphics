@@ -1,7 +1,11 @@
 #include <iostream>
 
 #include <GLFW/glfw3.h>
+#ifdef __WIN32 || __WIN64
+#include <gl/GL.h>
+#elif __APPLE__
 #include <OpenGL/gl.h>
+#endif
 
 
 int main() {
