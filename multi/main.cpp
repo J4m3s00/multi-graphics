@@ -7,6 +7,7 @@
 #include <OpenGL/gl.h>
 #endif
 
+#include <imgui.h>
 
 int main() {
     GLFWwindow* window;
