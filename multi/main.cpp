@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <OpenGL/gl.h>
 
+#include <imgui.h>
 
 int main() {
     GLFWwindow* window;

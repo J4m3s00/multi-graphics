@@ -11,6 +11,7 @@ add_subdirectory(multi)
 
 
 target_include_directories(multi PUBLIC glfw/include)
+target_include_directories(multi PUBLIC imgui)
 target_include_directories(multi PUBLIC ${OPENGL_INCLUDE_DIR})
 
 target_link_libraries(multi glfw)
