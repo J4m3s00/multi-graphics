@@ -1,9 +1,10 @@
+#define GL_SILENCE_DEPRECATION
 #include <iostream>
 
 #include <GLFW/glfw3.h>
-#ifdef __WIN32 || __WIN64
+#if defined(__WIN32) || defined(__WIN64)
 #include <gl/GL.h>
-#elif __APPLE__
+#elif defined(__APPLE__)
 #include <OpenGL/gl.h>
 #endif
 
@@ -25,6 +26,11 @@ int main() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void) io;
+
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
+    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 
     ImGui::StyleColorsDark();
 
@@ -50,10 +56,21 @@ int main() {
 
 
         ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
+        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+        {
+            GLFWwindow* backup_current_context = glfwGetCurrentContext();
+            ImGui::UpdatePlatformWindows();
+            ImGui::RenderPlatformWindowsDefault();
+            glfwMakeContextCurrent(backup_current_context);
+        }
         glfwSwapBuffers(window);
     }
 
+    ImGui_ImplOpenGL2_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
     glfwDestroyWindow(window);
+    glfwTerminate();
 
     return 0;
 }

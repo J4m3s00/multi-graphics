@@ -7,6 +7,7 @@ set(IMGUI_FILES ../imgui/imgui_draw.cpp
                 ../imgui/imgui.h
                 ../imgui/imgui_internal.h)
 
-add_executable(multi    ${IMGUI_FILES}
+add_executable(multi    main.cpp
+                        ${IMGUI_FILES}
                         imgui_helper/imgui_build_impl.cpp
-                        main.cpp)
+                        )
