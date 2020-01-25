@@ -37,6 +37,28 @@ int main() {
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL2_Init();
 
+    ///OPEN GL TESTING
+    const unsigned int vertexCount = 3 * 2;
+
+    float vertices[3 * 2] = {
+        -0.5f, -0.5f,
+        0.0f, 0.5f,
+        0.5f, -0.5f,
+    };
+
+    unsigned int indices[3] = {
+        0, 1, 2
+    };
+
+
+    GLuint vbo;
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+    glBufferData(GL_ARRAY_BUFFER, vertexCount * sizeof(float), vertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
 
@@ -53,6 +75,10 @@ int main() {
         ImGui::Render();
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glDrawBuffer(GL_TRIANGLES);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 
         ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
